@@ -25,10 +25,17 @@ namespace ConsoleUI
         private static void ProductTest()
         {
             ProducManager producManager = new ProducManager(new EfProductDal());
-
-            foreach (var product in producManager.GetProductDetails())
+            var result = producManager.GetProductDetails();
+            if (result.Success == true)
             {
-                Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
     }

@@ -37,7 +37,7 @@ namespace Business.Concrete
         {
             //iş kodları
             //yetkisi var mı?
-            if (DateTime.Now.Hour==22)
+            if (DateTime.Now.Hour==23)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenancaTime);
             }
@@ -56,7 +56,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max));
         }
 
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
