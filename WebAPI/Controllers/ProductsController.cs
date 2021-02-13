@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             _productService = productService;
         }
         [HttpGet("getall")]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {            
             var result = _productService.GetAll();
             if (result.Success)
@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Post(Product product)
+        public IActionResult Add(Product product)
         {
             var result = _productService.Add(product);
             if (result.Success)
@@ -43,7 +43,7 @@ namespace WebAPI.Controllers
             return BadRequest();
         }
         [HttpGet("getbyid")]
-        public IActionResult Get(int id)
+        public IActionResult GetById(int id)
         {
             var result = _productService.GetById(id);
             if (result.Success)
