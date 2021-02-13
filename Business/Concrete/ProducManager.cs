@@ -37,10 +37,10 @@ namespace Business.Concrete
         {
             //iş kodları
             //yetkisi var mı?
-            //if (DateTime.Now.Hour==22)
-            //{
-            //    return new ErrorDataResult<List<Product>>(Messages.MaintenancaTime);
-            //}
+            if (DateTime.Now.Hour == 1)
+            {
+                return new ErrorDataResult<List<Product>>(Messages.MaintenancaTime);
+            }
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductsListed);
         }
 
