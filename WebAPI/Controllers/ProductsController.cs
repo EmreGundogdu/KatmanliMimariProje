@@ -1,10 +1,11 @@
-﻿using Entitties.Concrete;
-using Microsoft.AspNetCore.Http;
+﻿using Business.Abstract;
+using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
+using Entitties.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace WebAPI.Controllers
 {
@@ -12,14 +13,20 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        //Loseely coupled
+        //naming convention
+        //IoC Container  -- Inversion of Control = Bellekteki bir yer içine referanslar koyup kim ihtyac duyuyorsa kullanılmasına denir
+        IProductService _productService;
+
+        public ProductsController(IProductService productService)
+        {
+            _productService = productService;
+        }
         [HttpGet]
         public List<Product> Get()
-        {
-            return new List<Product>
-            {
-                new Product{ProductId = 1,ProductName = "Elma"},
-                new Product{ProductId = 2,ProductName = "Armut"},
-            };
+        {            
+            var result = _productService.GetAll();
+            return result.Data;
         }
     }
 }
