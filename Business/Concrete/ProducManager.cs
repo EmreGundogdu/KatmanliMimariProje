@@ -22,13 +22,10 @@ namespace Business.Concrete
         {
             _productDal = productDal;
         }
-        []
+        [ValidationAspec(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             //business codes
-            //validation
-            
-            ValidationTool.Validate(new ProductValidator(), product);
 
             _productDal.Add(product);
             return new SuccesResult(Messages.ProductAdded);
