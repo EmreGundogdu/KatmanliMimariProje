@@ -35,8 +35,8 @@ namespace WebAPI
             //AOP
             //Postsharp
             services.AddControllers();
-            services.AddSingleton<IProductService, ProducManager>();
-            services.AddSingleton<IProductDal, EfProductDal>();
+            //services.AddSingleton<IProductService, ProducManager>();
+            //services.AddSingleton<IProductDal, EfProductDal>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
