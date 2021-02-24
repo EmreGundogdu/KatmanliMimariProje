@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Core.Aspects.Autofac.Valdiation
 {
-    public class ValidationAspect : MethodInterception
+    public class ValidationAspect : MethodInterception //Aspect - Metodun başında sonunda hata verdiğinde çalışacak yapı
     {
         private Type _validatorType;
         public ValidationAspect(Type validatorType)
@@ -23,7 +23,7 @@ namespace Core.Aspects.Autofac.Valdiation
         }
         protected override void OnBefore(IInvocation invocation)
         {
-            var validator = (IValidator)Activator.CreateInstance(_validatorType); // reflection - çalışma anında bazı şeyleri çalıştırmamızı sağlar
+            var validator = (IValidator)Activator.CreateInstance(_validatorType); // reflection - çalışma anında bazı şeyleri çalıştırmamızı sağlar - productValidatoru newledi
             var entityType = _validatorType.BaseType.GetGenericArguments()[0]; //product validatorun generic typeini bul 
             var entities = invocation.Arguments.Where(t => t.GetType() == entityType); //parametrelerini bul ve validatorun tipine eşit olanları bul
             foreach (var entity in entities)
