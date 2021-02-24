@@ -4,6 +4,7 @@ using Business.CrossCuttingConcerns;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Valdiation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
@@ -30,6 +31,7 @@ namespace Business.Concrete
         //[ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
+            BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
             //business codes           
             if (CheckIfProductCountOfCategoryCorrect(product.CategoryId).Success)
             {
