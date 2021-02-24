@@ -21,27 +21,17 @@ namespace Business.Concrete
         IProductDal _productDal;
         Ilogger _logger;
 
-        public ProducManager(IProductDal productDal,Ilogger logger)
+        public ProducManager(IProductDal productDal)
         {
-            _productDal = productDal;
-            _logger = logger;
+            _productDal = productDal;            
         }
         //[ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             //business codes
-            _logger.Log();
-            try
-            {
-                _productDal.Add(product);
-                return new SuccesResult(Messages.ProductAdded);
-            }
-            catch (Exception e)
-            {
 
-                _logger.Log();
-            }
-            return new ErrorResult();
+            _productDal.Add(product);
+            return new SuccesResult(Messages.ProductAdded);
         }
 
         public IDataResult<List<Product>> GetAll()
