@@ -22,11 +22,13 @@ namespace Business.Concrete
     public class ProducManager : IProductService
     {
         IProductDal _productDal;
-        Ilogger _logger;
+        ICategoryService _categoryService;
 
-        public ProducManager(IProductDal productDal)
+
+        public ProducManager(IProductDal productDal,ICategoryService categoryService)
         {
             _productDal = productDal;
+            _categoryService = categoryService;
         }
         //[ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product) //business codes        
@@ -73,7 +75,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
-        [ValidationAspect(typeof(ProductValidator)]
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Update(Product product)
         {
             var result = _productDal.GetAll(p => p.CategoryId == product.CategoryId).Count;
