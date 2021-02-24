@@ -26,23 +26,22 @@ namespace Business.Concrete
 
         public ProducManager(IProductDal productDal)
         {
-            _productDal = productDal;            
+            _productDal = productDal;
         }
         //[ValidationAspect(typeof(ProductValidator))]
-        public IResult Add(Product product)
+        public IResult Add(Product product) //business codes        
         {
-            BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
-            //business codes           
-            if (CheckIfProductCountOfCategoryCorrect(product.CategoryId).Success)
+            IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
+            if (result != null)
             {
-                if (CheckIfProductNameExists(product.ProductName).Success)
-                {
-                    _productDal.Add(product);
-                    return new SuccesResult(Messages.ProductAdded);
-                }                
+                return result;
             }
-            return new ErrorResult();
-        }       
+            _productDal.Add(product);
+            return new SuccesResult(Messages.ProductAdded);
+
+
+
+        }
 
         public IDataResult<List<Product>> GetAll()
         {
@@ -52,7 +51,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenancaTime);
             }
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductsListed);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
         }
 
         public IDataResult<List<Product>> GetAllByCategoryId(int id)
