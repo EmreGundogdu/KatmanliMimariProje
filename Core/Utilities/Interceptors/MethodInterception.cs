@@ -5,6 +5,8 @@ namespace Core.Utilities.Interceptors
 {
     public abstract class MethodInterception : MethodInterceptionBaseAttribute
     {
+        //İnvocation = business metodları yani add , delete, remove gibi metodlar invoc yerine geçiyor
+        //virtual = ezilmeye mecbur class
         protected virtual void OnBefore(IInvocation invocation) { }
         protected virtual void OnAfter(IInvocation invocation) { }
         protected virtual void OnException(IInvocation invocation, System.Exception e) { }

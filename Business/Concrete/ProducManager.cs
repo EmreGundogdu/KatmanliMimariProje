@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.CrossCuttingConcerns;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Valdiation;
 using Core.CrossCuttingConcerns.Validation;
@@ -18,20 +19,29 @@ namespace Business.Concrete
     public class ProducManager : IProductService
     {
         IProductDal _productDal;
+        Ilogger _logger;
 
-        public ProducManager(IProductDal productDal)
+        public ProducManager(IProductDal productDal,Ilogger logger)
         {
             _productDal = productDal;
+            _logger = logger;
         }
-        [ValidationAspect(typeof(ProductValidator))]
+        //[ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             //business codes
+            _logger.Log();
+            try
+            {
+                _productDal.Add(product);
+                return new SuccesResult(Messages.ProductAdded);
+            }
+            catch (Exception e)
+            {
 
-            _productDal.Add(product);
-            return new SuccesResult(Messages.ProductAdded);
-
-
+                _logger.Log();
+            }
+            return new ErrorResult();
         }
 
         public IDataResult<List<Product>> GetAll()
