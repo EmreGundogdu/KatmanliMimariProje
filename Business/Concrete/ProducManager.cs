@@ -30,19 +30,18 @@ namespace Business.Concrete
             _productDal = productDal;
             _categoryService = categoryService;
         }
+
         //[ValidationAspect(typeof(ProductValidator))]
+        //[SecuredOperation("admin,editor")]
         public IResult Add(Product product) //business codes        
         {
-            IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
+            IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId),CheckIfCategoryLimitExceded());
             if (result != null)
             {
                 return result;
             }
             _productDal.Add(product);
             return new SuccesResult(Messages.ProductAdded);
-
-
-
         }
 
         public IDataResult<List<Product>> GetAll()
