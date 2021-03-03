@@ -1,5 +1,7 @@
 using Business.Abstract;
 using Business.Concrete;
+using Core.DependencyResolvers;
+using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
@@ -57,7 +59,9 @@ namespace WebAPI
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = SecurirtyKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
-                    ServiceTool.Create(services);
+                    services.AddDependencyResolvers(new ICoreModule[] { 
+                        new CoreModule()
+                    });
                 });
             //services.AddSingleton<IProductService, ProducManager>();
             //services.AddSingleton<IProductDal, EfProductDal>();
