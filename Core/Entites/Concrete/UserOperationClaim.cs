@@ -6,6 +6,6 @@ namespace Core.Entites.Concrete
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int OpeationClaimId { get; set; }
+        public int OperationClaimId { get; set; }
     }
 }
