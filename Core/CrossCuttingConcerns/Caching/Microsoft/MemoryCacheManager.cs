@@ -3,8 +3,8 @@ using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Text;
-​using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 
 namespace Core.CrossCuttingConcerns.Caching.Microsoft
@@ -34,7 +34,7 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
 
         public bool IsAdd(string key)
         {
-            return _memoryCache.TryGetValue(key,out _);
+            return _memoryCache.TryGetValue(key, out _);
         }
 
         public void Remove(string key)
@@ -62,4 +62,6 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
                 _memoryCache.Remove(key);
             }
         }
+    } 
 }
+
