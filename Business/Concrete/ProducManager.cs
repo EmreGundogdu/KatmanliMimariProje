@@ -35,7 +35,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ProductValidator))]
-        [SecuredOperation("product.add,admin")]
+        //[SecuredOperation("product.add,admin")]
         [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product) //business codes        
         {
